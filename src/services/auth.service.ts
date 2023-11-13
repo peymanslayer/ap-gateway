@@ -10,4 +10,9 @@ export class AuthService {
     const insertUser = await this.client.send('signUp', user).toPromise();
     return insertUser;
   }
+
+  async signIn(user:CreateUserDto){
+   const logInUser=await this.client.send('logIn',user).toPromise();
+   return logInUser;
+  }
 }

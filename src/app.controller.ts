@@ -58,4 +58,10 @@ export class AppController {
     const result=await this.authService.signUp(user);
     response.status(result.status).json(result.message)
   }
+
+  @Post('/api/login')
+  async logIn(@Body() user:CreateUserDto,@Res() response:Response){
+    const result=await this.authService.signIn(user);
+    return result;
+  }
 }
