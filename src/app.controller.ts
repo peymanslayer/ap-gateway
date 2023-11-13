@@ -14,9 +14,10 @@ import { CreateUserDto } from './dtos/userDto/create.user.dto';
 import { UpdateUserDto } from './dtos/userDto/update.user.dto';
 import { FindUserDto } from './dtos/userDto/find.user.dto';
 import { Types } from 'mongoose';
+import { AuthService } from './services/auth.service';
 @Controller()
 export class AppController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: UserService,private readonly authService:AuthService) {}
 
   @Post('/api/createUser')
   async insertUser(@Body() user: CreateUserDto, @Res() response: Response) {
@@ -50,5 +51,11 @@ export class AppController {
   async deleteUser(@Body() userId : Types.ObjectId, @Res() response: Response) {
     const result = await this.userService.deleteUser(userId);
     response.status(201).json(result);
+  }
+
+  @Post('/api/signUp')
+  async signUp(@Body() user:CreateUserDto,@Res() response:Response){
+    const result=await this.authService.signUp(user);
+    response.status(result.status).json(result.message)
   }
 }

@@ -12,7 +12,7 @@ export class UserService {
   constructor(@Inject('USER_SERVICE') private client: ClientProxy) {}
 
   async insertUser(user: CreateUserDto): Promise<UserDto> {
-    const insertUser = await this.client.send('insertUser', user).toPromise();
+    const insertUser = await this.client.send('signUp', user).toPromise();
     console.log(insertUser);
 
     return insertUser;
