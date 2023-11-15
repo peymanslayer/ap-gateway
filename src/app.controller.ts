@@ -17,7 +17,10 @@ import { Types } from 'mongoose';
 import { AuthService } from './services/auth.service';
 @Controller()
 export class AppController {
-  constructor(private readonly userService: UserService,private readonly authService:AuthService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly authService: AuthService,
+  ) {}
 
   @Post('/api/createUser')
   async insertUser(@Body() user: CreateUserDto, @Res() response: Response) {
@@ -48,20 +51,20 @@ export class AppController {
   }
 
   @Delete('api/deleteUser')
-  async deleteUser(@Body() userId : Types.ObjectId, @Res() response: Response) {
+  async deleteUser(@Body() userId: Types.ObjectId, @Res() response: Response) {
     const result = await this.userService.deleteUser(userId);
     response.status(201).json(result);
   }
 
   @Post('/api/signUp')
-  async signUp(@Body() user:CreateUserDto,@Res() response:Response){
-    const result=await this.authService.signUp(user);
-    response.status(result.status).json(result.message)
+  async signUp(@Body() user: CreateUserDto, @Res() response: Response) {
+    const result = await this.authService.signUp(user);
+    response.status(result.status).json(result.message);
   }
 
   @Post('/api/login')
-  async logIn(@Body() user:CreateUserDto,@Res() response:Response){
-    const result=await this.authService.signIn(user);
-    return result;
+  async logIn(@Body() user: CreateUserDto, @Res() response: Response) {
+    const result = await this.authService.signIn(user);
+    return response.status(result.status).json(result.message);
   }
 }
