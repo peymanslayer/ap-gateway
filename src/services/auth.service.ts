@@ -15,4 +15,9 @@ export class AuthService {
    const logInUser=await this.client.send('logIn',user).toPromise();
    return logInUser;
   }
+
+  async refreshToken(refreshToken:string){
+    const validateRefreshToken=await this.client.send('refreshToken',refreshToken).toPromise();
+    return validateRefreshToken;
+  }
 }

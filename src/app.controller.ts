@@ -67,4 +67,10 @@ export class AppController {
     const result = await this.authService.signIn(user);
     return response.status(result.status).json(result.message);
   }
+
+  @Post('/api/refreshToken')
+  async refreshToken(@Body() refreshToken:string, @Res() response: Response){
+    const result=await this.authService.refreshToken(refreshToken);
+    response.status(result.status).json(result.message);
+  }
 }
